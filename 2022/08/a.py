@@ -8,8 +8,7 @@ for (x, y), num in grid.items():
         all(grid[x + i + 1, y] < num for i in range(size - x)) or
         all(grid[x, y + i + 1] < num for i in range(size - y)) or
         all(grid[x - i - 1, y] < num for i in range(x)) or
-        all(grid[x, y - i - 1] < num for i in range(y)) or
-        x in (0, size) or y in (0, size)
+        all(grid[x, y - i - 1] < num for i in range(y))
     ):
         tot += 1
 
