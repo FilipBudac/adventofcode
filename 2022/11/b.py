@@ -1,7 +1,7 @@
 import math
 import re
 
-monkeys, nums = [], []
+monkeys = []
 with open('input.txt') as file:
     for (_, items, op, test, true, false) in map(str.splitlines, file.read().split('\n\n')):
         monkeys.append({
@@ -12,10 +12,8 @@ with open('input.txt') as file:
                 'false': int(re.search(r'\d+', false).group()),
                 'qty': 0
         })
-        for old in monkeys[-1]['items']:
-            nums.append(eval(monkeys[-1]['op']))
 
-mod = math.lcm(*nums)
+mod = math.lcm(*[m['test'] for m in monkeys])
 for _ in range(10_000):
     for m in monkeys:
         for old in m['items']:
