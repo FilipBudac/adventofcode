@@ -4,12 +4,12 @@ import functools
 
 
 def build(oc, cc, ooc, occ, goc, gobc, t):
-    s = [(0, 1, 0, 0, 0, 0, 0, 0, t)]
+    stack = [(0, 1, 0, 0, 0, 0, 0, 0, t)]
     seen = set()
     m = 0
     req = max(oc, cc, ooc, goc)
-    while s:
-        cur = s.pop()
+    while stack:
+        cur = stack.pop()
         if cur in seen:
             continue
         seen.add(cur)
@@ -24,20 +24,20 @@ def build(oc, cc, ooc, occ, goc, gobc, t):
 
         ext = False
         if o >= goc and ob >= gobc:
-            s.append((no - goc, ro, nc, rc, nob - gobc, rob, ng, rg + 1, t))
+            stack.append((no - goc, ro, nc, rc, nob - gobc, rob, ng, rg + 1, t))
             ext = True
         if o >= ooc and c >= occ:
-            s.append((no - ooc, ro, nc - occ, rc, nob, rob + 1, ng, rg, t))
+            stack.append((no - ooc, ro, nc - occ, rc, nob, rob + 1, ng, rg, t))
             ext = True
         if o >= cc:
-            s.append((no - cc, ro, nc, rc + 1, nob, rob, ng, rg, t))
+            stack.append((no - cc, ro, nc, rc + 1, nob, rob, ng, rg, t))
             ext = True
         if o >= oc:
-            s.append((no - oc, ro + 1, nc, rc, nob, rob, ng, rg, t))
+            stack.append((no - oc, ro + 1, nc, rc, nob, rob, ng, rg, t))
             ext = True
 
         if not ext:
-            s.append((no, ro, nc, rc, nob, rob, ng, rg, t))
+            stack.append((no, ro, nc, rc, nob, rob, ng, rg, t))
 
     return m
 
